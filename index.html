@@ -249,7 +249,7 @@
 
   <div class="hero-readout">
     <span class="num" id="hero-num">322<span class="tip" tabindex="0" data-tip="Count of Airtable records with Purchased = True, submitted 1 Apr 2025 to 31 Mar 2026.">i</span> &rarr; 427<span class="tip" tabindex="0" data-tip="7,588 total leads x April's rate (5.63%). April is used as the benchmark since it is the best rate at a normal-volume month.">i</span></span>
-    <span class="lbl">Purchases at current lead volume: actual result, vs. what April's demonstrated conversion rate implies if held all year. <strong style="color:#fff;">&asymp; $217,140</strong><span class="tip" tabindex="0" data-tip="(427 - 322) extra purchases x $2,068 average margin per vehicle, excluding GST.">i</span> in additional margin at our average $2,068/vehicle (excluding GST).</span>
+    <span class="lbl">If we simply sustained April's conversion rate across the year, from the exact same leads, we could unlock <strong style="color:#fff;">well over $200,000</strong><span class="tip" tabindex="0" data-tip="(427 - 322) extra purchases x our existing average margin per vehicle, excluding GST. Precise figure withheld.">i</span> in additional margin, calculated from our existing margin per vehicle.</span>
   </div>
 
   <section>
@@ -321,15 +321,15 @@
           <div class="o-val" id="purchases-out">427 <small id="delta-out">(+105 vs actual)</small></div>
         </div>
         <div class="out b">
-          <div class="o-lbl">Est. additional margin (excl. GST)<span class="tip" tabindex="0" data-tip="(Projected purchases minus 322 actual) x $2,068 average margin per vehicle.">i</span></div>
-          <div class="o-val" id="margin-out">$217,140</div>
+          <div class="o-lbl">Est. additional margin (excl. GST)<span class="tip" tabindex="0" data-tip="Shown as a coarse tier ($150K+, $280K+, $410K+, $550K+), not an exact figure, so the underlying per-vehicle margin cannot be reverse-engineered from the slider.">i</span></div>
+          <div class="o-val" id="margin-out">$150K+</div>
         </div>
       </div>
     </div>
   </section>
 
   <footer>
-    Source: 1 Apr 2025 to 31 Mar 2026 view, Website/Elementor Form Opportunities (Incoming Opportunities base). Figures aggregated; no individual customer records included. Scenario uplift values are illustrative assumptions, not statistical projections. Average margin/vehicle ($2,068, excluding GST) derived from the Stock Purchase Report 2026 (359 vehicles, 1 Apr 2025 to 31 Mar 2026, $742,431 total margin).
+    Source: 1 Apr 2025 to 31 Mar 2026 view, Website/Elementor Form Opportunities (Incoming Opportunities base). Figures aggregated; no individual customer records included. Scenario uplift values are illustrative assumptions, not statistical projections. Margin figures derived from the Stock Purchase Report 2026 (359 vehicles, 1 Apr 2025 to 31 Mar 2026); exact per-vehicle and total margin figures withheld.
   </footer>
 
 </div>
@@ -432,7 +432,8 @@ function update(){
   const delta = purchases - totalPurchases;
   rateOut.textContent = (rate*100).toFixed(2) + '%';
   purchasesOut.innerHTML = purchases + ' <small>(' + (delta >= 0 ? '+' : '') + delta + ' vs actual)</small>';
-  marginOut.textContent = '$' + Math.round(delta * avgMargin).toLocaleString('en-US');
+  const margin = delta * avgMargin;
+  marginOut.textContent = margin >= 550000 ? '$550K+' : margin >= 410000 ? '$410K+' : margin >= 280000 ? '$280K+' : margin >= 150000 ? '$150K+' : 'Under $150K';
 }
 upliftEl.addEventListener('input', update);
 update();
